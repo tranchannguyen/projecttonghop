@@ -1,0 +1,47 @@
+extends ../layouts/commit
+
+block content
+	#page-wrapper(style='min-height: 616px;')
+		.main-page
+			.forms
+				.form-grids.row.form-grids-right
+					.widget-shadow(data-example-id='basic-forms')
+						.form-title
+							h4 Thêm sản phẩm mới
+						.form-body
+							if errors
+								each error in errors
+									.alert.alert-danger= error
+							form.form-horizontal(action="/products/create",method="POST", enctype="multipart/form-data")
+								.form-group
+									label.col-sm-2.control-label(for="name") Name product
+									.col-sm-9
+										input#name.form-control.input-sm(type="text",name="name",value = value ? values.name : "")
+								.form-group
+									label.col-sm-2.control-label(for="danhmuc") Name Category
+									.col-sm-9
+										select(name="idCate", type='text')
+											each cate in cates												
+												option(value= cate._id)= cate.name
+								.form-group
+									label.col-sm-2.control-label(for="brand") Brand
+									.col-sm-9
+										input#brand.form-control(type="text",name="brand")
+								.form-group
+									label.col-sm-2.control-label(for="price") Price
+									.col-sm-9
+										input#price.form-control(type="number",name="price")
+								.form-group
+									label.col-sm-2.control-label(for="quantity") Quantity
+									.col-sm-9
+										input#quantity.form-control(type="number",name="quantity")
+								.form-group
+									label.col-sm-2.control-label(for="description") Description
+									.col-sm-9
+										input#description.form-control(type="text",name="description")
+								.form-group
+									label.col-sm-2.control-label(for="pro_images") Image 
+									.col-sm-9
+										input#pro_images.form-control-file(type="file",name="pro_images",multiple)
+								.col-sm-offset-2
+									button.btn.btn-success(type='submit') Create

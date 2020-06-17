@@ -1,0 +1,32 @@
+extends ../layouts/commit
+block content
+		#page-wrapper
+			.main-page
+				.tables
+					.panel-body.widget-shadow
+						h1 Danh sách user
+						br
+								
+						table.table.table-hove
+							thead
+								tr
+									th Name
+									th Avatar
+									th Email
+									th Status
+									th Action
+							tbody
+							each user in users
+								tr
+									td
+										p(text-align='center')= user.name
+									td
+										img.border.border-success.rounded-lg(src=user.avatar, width="64",height ="64")
+									td
+										i= user.email
+									td
+										a.btn.btn-primary= user.status
+									td
+										a.btn.btn-success(href='/users/'+user._id) View
+										span 
+										a.btn.btn-danger(href='/users/'+user._id+'/delete',onclick="return confirm('Bạn có muốn xoa không ?')") Delete
