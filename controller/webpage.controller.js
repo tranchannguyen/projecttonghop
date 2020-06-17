@@ -44,7 +44,7 @@ module.exports.search = async function(req,res){
    var perpage = 25
    let start = (page - 1) * perpage;
    let end =  page * perpage
-    
+
    var product = await Product.find()
    var products = product.slice(start,end).filter(function(pro){
       return  pro.name.toLowerCase().indexOf(q.toLowerCase()) !== -1
@@ -88,7 +88,7 @@ module.exports.viewAll = async function(req,res){
    var perpage = 25
    let start = (page - 1) * perpage;
    let end =  page * perpage
-    
+
    var product = await Product.find()
    let numberpages = Math.ceil(parseFloat(product.length/perpage))
    let arrpages = []
@@ -188,7 +188,7 @@ module.exports.viewProductByCateId = async function(req,res){
 	{
 		res.redirect('/');
 		return;
-	}else 
+	}else
    res.render('authG/signin');
  }
  module.exports.postRegister  = async function(req,res){
@@ -200,14 +200,14 @@ module.exports.viewProductByCateId = async function(req,res){
       await UserG.insertMany(req.body);
    res.render('authG/register',{
       success : "Register success"
-   }) 
+   })
  }
 
 
  module.exports.postLogin = async function(req,res){
    var email = req.body.your_email;
 	var your_pass = req.body.your_pass;
-	
+
 	var userg = await UserG.findOne({email: email});
 	if(!userg){
 		res.render('/login',{
@@ -273,6 +273,26 @@ module.exports.viewProductByCateId = async function(req,res){
 		else	res.redirect('/profile');
 	})
  }
+ exports.postComment = (req, res, next) => {
+   const prodId = req.params.id;
+   var tname;
+   tname = req.body.inputName;
+   Product.findOne({
+     _id: prodId
+   }).then(product => {
+     var today = new Date();
+     product.comment.items.push({
+       title: req.body.inputTitle,
+       content: req.body.inputContent,
+       name: tname,
+       date: today,
+     });
+     product.comment.total++;
+     product.save();
+   });
+   res.redirect("back");
+ };
+
 
 //  exports.addToCart = (req, res, next) => {
 //    var prodId = req.params.productId;
@@ -290,7 +310,7 @@ module.exports.viewProductByCateId = async function(req,res){
 //      res.redirect("back");
 //    });
 //  };
- 
+
 //  exports.modifyCart = (req, res, next) => {
 //    var prodId = req.query.id;
 //    var qty = req.query.qty;
@@ -311,7 +331,7 @@ module.exports.viewProductByCateId = async function(req,res){
 //      res.redirect("back");
 //    });
 //  };
- 
+
 //  exports.getDeleteCart = (req, res, next) => {
 //    req.session.cart = null;
 //    if (req.user) {
@@ -320,7 +340,7 @@ module.exports.viewProductByCateId = async function(req,res){
 //    }
 //    res.redirect("back");
 //  };
- 
+
 //  exports.getDeleteItem = (req, res, next) => {
 //    var prodId = req.params.productId;
 //    var cart = new Cart(req.session.cart ? req.session.cart : {});
@@ -338,7 +358,7 @@ module.exports.viewProductByCateId = async function(req,res){
 //      res.redirect("back");
 //    });
 //  };
- 
+
 //  exports.addOrder = (req, res, next) => {
 //    var cartProduct;
 //    if (!req.session.cart) {
@@ -353,7 +373,7 @@ module.exports.viewProductByCateId = async function(req,res){
 //      cartProduct: cartProduct
 //    });
 //  };
- 
+
 //  exports.postAddOrder = async (req, res, next) => {
 //    console.log(req.session.cart);
 //    if (req.session.cart.totalQty) {
@@ -363,7 +383,7 @@ module.exports.viewProductByCateId = async function(req,res){
 //        address: req.body.address,
 //        phoneNumber: req.body.phone
 //      });
- 
+
 //      for (var id in req.session.cart.items) {
 //        await Products.findOne({ _id: id })
 //          .then(product => {
@@ -372,7 +392,7 @@ module.exports.viewProductByCateId = async function(req,res){
 //          })
 //          .catch(err => console.log(err));
 //      }
- 
+
 //      order.save((err, result) => {
 //        req.flash("success", "Thanh toán thành công!");
 //        req.session.cart = null;
@@ -385,7 +405,7 @@ module.exports.viewProductByCateId = async function(req,res){
 //      res.redirect("/account");
 //    }
 //  };
- 
+
 //  exports.mergeCart = (req, res, next) => {
 //    if (req.user.cart != {} && req.user.cart) {
 //      var cart = new Cart(req.session.cart ? req.session.cart : {});
@@ -396,4 +416,3 @@ module.exports.viewProductByCateId = async function(req,res){
 //    }
 //    res.redirect("/");
 //  };
- 

@@ -10,6 +10,7 @@ router.get('/search',webpageController.search);
 router.get('/viewAll',webpageController.viewAll);
 router.get('/productofcategorys/:id',webpageController.viewProductByCateId);
 router.get('/viewDetailProduct/:id',webpageController.viewProductById);
+router.post('/viewDetailProduct/:id',webpageController.postComment);
 router.get('/register',webpageController.register)
 router.post('/register',webpageController.postRegister)
 router.get('/login',webpageController.login)
@@ -52,4 +53,3 @@ router.post('/profile',webpageController.postProfile);
 // router.post('/edits/:id',userController.putEdit)
 // router.get('/:id/delete',userController.deleteUser)
 module.exports = router;
-

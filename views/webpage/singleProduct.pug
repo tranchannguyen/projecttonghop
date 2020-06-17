@@ -152,13 +152,13 @@ head
               .product_name= products.name
               .product_text
                 p= products.description
-      
+
               .order_info.d-flex.flex-row
                 form(action='#')
                   .clearfix(style='z-index: 1000;')
                     // Product Quantity
                     .product_quantity.clearfix
-                      span Quantity: 
+                      span Quantity:
                       input#quantity_input(type='text', pattern='[0-9]*', value='1')
                       .quantity_buttons
                         #quantity_inc_button.quantity_inc.quantity_control
@@ -171,18 +171,31 @@ head
                     .product_fav
                       i.fas.fa-heart
           .col-lg-5.order-3
-              .tt-collapse-title 0 Đánh giá
+              .tt-collapse-title= 'Có '+ products.comment.total + ' đánh giá'
+                .tt-review-comments.sliderr.arrow-location-right-top
+                  each item in products.comment.items
+                    .tt-item
+                      .tt-avatar
+                        a(href='/#')
+                          img(src='http://bros-admin.herokuapp.com/assets/images/single/userAvt.png', width='50px', height='50px')
+                      .tt-content
+                        .tt-comments-info
+                          span.username
+                            span= 'Name : '+ item.name
+                        .tt-comments-title= 'Tiêu đề : '+ item.title
+                        p='Nội dung : ' + item.content
+
               div(style='display: block;')
                 .tt-review-block
                   .tt-row-custom-02
                     .col-item
                       h2.tt-title
-                        
+
                     .col-item
-                      a(href='#rv') Vi&#x1EBF;t m&#x1ED9;t &dstrok;&aacute;nh gi&aacute; 
+                      a(href='#rv') Vi&#x1EBF;t m&#x1ED9;t &dstrok;&aacute;nh gi&aacute;
                   .tt-review-form
                     #rv.tt-message-info Đánh giá
-                    form.form-default(method='POST')
+                    form.form-default(method='POST',action="/viewDetailProduct/"+products._id)
                       .form-group
                         label.control-label(for='inputName') T&ecirc;n *
                         input#inputName.form-control(type='text', name='inputName', placeholder='Enter your name')
@@ -193,10 +206,10 @@ head
                         label.control-label(for='inputContent') N&#x1ED9;i dung *
                         input#textarea.form-control(placeholder='Enter your review', rows='8', name='inputContent')
                       .form-group
-                        
+
                       .form-group
                         button.btn(type='submit') &Dstrok;&aacute;nh gi&aacute;
-    
+
   // Recently Viewed
   .viewed
     .container
@@ -434,9 +447,9 @@ head
               | Copyright &copy;
               script.
                 document.write(new Date().getFullYear());
-              |  All rights reserved | This template is made with 
+              |  All rights reserved | This template is made with
               i.fa.fa-heart(aria-hidden='true')
-              |  by 
+              |  by
               a(href='https://colorlib.com', target='_blank') Colorlib
               // Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0.
             .logos.ml-sm-auto
