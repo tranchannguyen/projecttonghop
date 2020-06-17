@@ -1,7 +1,30 @@
 extends header.pug
 
 block header
+  <!-- Load Facebook SDK for JavaScript -->
+      <div id="fb-root"></div>
+      <script>
+        window.fbAsyncInit = function() {
+          FB.init({
+            xfbml            : true,
+            version          : 'v7.0'
+          });
+        };
 
+        (function(d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
+        js.src = 'https://connect.facebook.net/en_US/sdk/xfbml.customerchat.js';
+        fjs.parentNode.insertBefore(js, fjs);
+      }(document, 'script', 'facebook-jssdk'));</script>
+
+      <!-- Your Chat Plugin code -->
+      <div class="fb-customerchat"
+        attribution=setup_tool
+        page_id="107912777630169"
+  theme_color="#44bec7">
+      </div>
   // Banner
   .banner
     .banner_background(style='background-image:url(/webpage/images/banner_background.jpg)')
@@ -80,10 +103,10 @@ block header
                     .available
                       .available_line.d-flex.flex-row.justify-content-start
                         .available_title
-                          | Available: 
+                          | Available:
                           span 6
                         .sold_title.ml-auto
-                          | Already sold: 
+                          | Already sold:
                           span 28
                       .available_bar
                         span(style='width:17%')
@@ -142,7 +165,7 @@ block header
                           li.product_mark.product_new new
                           if feature.isSale.status == true
                             li.product_mark.product_discount= feature.isSale.percent + '%'
-                  
+
               // Product Panel
               .product_panel.panel
                 .featured_slider.slider
@@ -167,7 +190,7 @@ block header
                         ul.product_marks
                           li.product_mark.product_new new
                           li.product_mark.product_discount= laptop.isSale.percent + '%'
-              
+
   // Popular Categories
   .popular_categories
     .container
@@ -331,7 +354,7 @@ block header
                           .product_fav
                             i.fas.fa-heart
                           ul.product_marks
-                            li.product_mark.product_new new    
+                            li.product_mark.product_new new
                 // Product Panel
                 .product_panel.panel
                   .arrivals_slider.slider
@@ -1427,7 +1450,7 @@ block header
             h3.reviews_title Latest Reviews
             .reviews_all.ml-auto
               a(href='#')
-                | view all 
+                | view all
                 span reviews
           .reviews_slider_container
             // Reviews Slider
