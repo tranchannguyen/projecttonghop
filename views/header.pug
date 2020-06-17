@@ -234,6 +234,9 @@ head
     // Footer
     footer.footer
       #fb-root
+      script(async='', defer='', crossorigin='anonymous', src='https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v7.0&appId=571776070380562&autoLogAppEvents=1', nonce='SamImgfI')
+
+      #fb-root
       script.
         window.fbAsyncInit = function() {
         FB.init({
@@ -249,6 +252,8 @@ head
         fjs.parentNode.insertBefore(js, fjs);
         }(document, 'script', 'facebook-jssdk'));
       // Your Chat Plugin code
+      
+
       .fb-customerchat(attribution='setup_tool', page_id='107912777630169', theme_color='#44bec7')
       .container
         .row

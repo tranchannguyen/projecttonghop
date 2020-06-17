@@ -1,6 +1,7 @@
 extends header.pug
 
 block header
+
   // Load Facebook SDK for JavaScript
 
 
@@ -49,13 +50,11 @@ block header
               .char_title Free Delivery
               .char_subtitle from $50
         // Char. Item
+
         .col-lg-3.col-md-6.char_col
-          .char_item.d-flex.flex-row.align-items-center.justify-content-start
-            .char_icon
-              img(src='/webpage/images/char_4.png', alt='')
-            .char_content
-              .char_title Free Delivery
-              .char_subtitle from $50
+            .fb-page(data-href='https://www.facebook.com/OneTech-107912777630169', data-tabs='timeline', data-width='', data-height='50', data-small-header='false', data-adapt-container-width='true', data-hide-cover='false', data-show-facepile='true')
+              blockquote.fb-xfbml-parse-ignore(cite='https://www.facebook.com/OneTech-107912777630169')
+                a(href='https://www.facebook.com/OneTech-107912777630169') OneTech
   // Deals of the week
   .deals_featured
     .container
@@ -116,7 +115,6 @@ block header
                 ul.clearfix
                   li.active Featured
                   li On Sale
-                  li Best Rated
                 .tabs_line
                   span
               // Product Panel
@@ -220,6 +218,7 @@ block header
                   .popular_category_image
                     img(src='/webpage/images/popular_5.png', alt='')
                   .popular_category_text Accessories
+
   // Banner
   .banner_2
     .banner_2_background(style='background-image:url(images/banner_2_background.jpg)')
