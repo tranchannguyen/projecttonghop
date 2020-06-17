@@ -78,11 +78,18 @@ head
                   .cart_icon
                     img(src='/webpage/images/cart.png', alt='')
                     .cart_count
-                      span 0
+                      if session.cart
+                        span= session.cart.totalQty
+                      else
+                        span 0
                   .cart_content
                     .cart_text
-                      a(href='#') Cart
-                    .cart_price $0
+                      a(href='/cart') Cart
+                    .cart_price
+                      if session.cart
+                        span= session.cart.totalPrice + ' $'
+                      else
+                        span $0
     // Main Navigation
     nav.main_nav
       .container

@@ -19,20 +19,7 @@ router.get('/blog',webpageController.blog)
 router.post('/login',webpageController.postLogin)
 router.get('/searchProductOfBrand/:brand',webpageController.brand)
 router.get('/logout',webpageController.logout)
-router.get('/add-to-cart/:id', function(req, res, next) {
-    var productId = req.params.id;
-    var cart = new Cart(req.session.cart ? req.session.cart : {});
-
-    Product.findById(productId, function(err, product) {
-       if (err) {
-           return res.redirect('/');
-       }
-        cart.add(product, product.id);
-        req.session.cart = cart;
-        console.log(req.session.cart);
-        res.redirect('/');
-    });
-});
+router.get('/add-to-cart/:id', webpageController.addToCart)
 router.get('/cart',webpageController.cart);
 router.get('/cart/clear',webpageController.clear);
 router.get('/checkout',webpageController.checkout);

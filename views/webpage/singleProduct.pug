@@ -75,13 +75,20 @@ head
               .cart
                 .cart_container.d-flex.flex-row.align-items-center.justify-content-end
                   .cart_icon
-                    img(src='../webpage/images/cart.png', alt='')
+                    img(src='/webpage/images/cart.png', alt='')
                     .cart_count
-                      span 0
+                      if session.cart
+                        span= session.cart.totalQty
+                      else
+                        span 0
                   .cart_content
                     .cart_text
-                      a(href='#') Cart
-                    .cart_price $0
+                      a(href='/cart') Cart
+                    .cart_price
+                      if session.cart
+                        span= session.cart.totalPrice + " $"
+                      else
+                        span $0
     // Main Navigation
     nav.main_nav
       .container
@@ -165,11 +172,9 @@ head
                           i.fas.fa-chevron-up
                         #quantity_dec_button.quantity_dec.quantity_control
                           i.fas.fa-chevron-down
-                  .product_price= products.price + " $"
+                  .product_price= 'Price : '+ products.price + " $"
                   .button_container
                     button.button.cart_button(type='button') Add to Cart
-                    .product_fav
-                      i.fas.fa-heart
           .col-lg-5.order-3
               .tt-collapse-title= 'Có '+ products.comment.total + ' đánh giá'
                 .tt-review-comments.sliderr.arrow-location-right-top

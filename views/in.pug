@@ -2,7 +2,7 @@ extends header.pug
 
 block header
   // Load Facebook SDK for JavaScript
-  
+
 
   // Banner
   .banner
@@ -137,7 +137,8 @@ block header
                             div
                               a(href='/viewDetailProduct/'+feature._id)= feature.name
                           .product_extras
-                            button.product_cart_button Add to Cart
+                            form(action='/add-to-cart/'+feature._id)
+                              button.product_cart_button() Add to Cart
                         .product_fav
                           i.fas.fa-heart
                         ul.product_marks
@@ -163,7 +164,8 @@ block header
                             div
                               a(href='/viewDetailProduct/'+laptop._id)= laptop.name
                           .product_extras
-                            button.product_cart_button Add to Cart
+                            form(action='/add-to-cart/'+laptop._id)
+                              button.product_cart_button Add to Cart
                         .product_fav
                           i.fas.fa-heart
                         ul.product_marks
@@ -308,7 +310,8 @@ block header
                               div
                                 a(href='/viewDetailProduct/'+feature._id)= feature.name
                             .product_extras
-                              button.product_cart_button Add to Cart
+                              form(action='/add-to-cart/'+feature._id)
+                                button.product_cart_button Add to Cart
                           .product_fav
                             i.fas.fa-heart
                           ul.product_marks
@@ -329,7 +332,8 @@ block header
                               div
                                 a(href='/viewDetailProduct/'+smartphone._id)= smartphone.name
                             .product_extras
-                              button.product_cart_button Add to Cart
+                              form(action='/add-to-cart/'+smartphone._id)
+                                button.product_cart_button Add to Cart
                           .product_fav
                             i.fas.fa-heart
                           ul.product_marks
@@ -350,7 +354,8 @@ block header
                               div
                                 a(href='/viewDetailProduct/'+laptop._id)= laptop.name
                             .product_extras
-                              button.product_cart_button Add to Cart
+                              form(action='/add-to-cart/'+laptop._id)
+                                button.product_cart_button Add to Cart
                           .product_fav
                             i.fas.fa-heart
                           ul.product_marks
@@ -365,10 +370,10 @@ block header
                         a(href='#') Smartphones
                       .arrivals_single_name_container.clearfix
                         .arrivals_single_name
-                          a(href='#')= smartphonenew[0].name
+                          a(href='/viewDetailProduct/'+smartphonenew[0]._id)= smartphonenew[0].name
                         .arrivals_single_price.text-center= smartphonenew[0].price
                       .rating_r.rating_r_4.arrivals_single_rating
-                      form(action='#')
+                      form(action='/add-to-cart/'+smartphonenew[0]._id)
                         button.arrivals_single_button Add to Cart
                     .arrivals_single_fav.product_fav.active
                       i.fas.fa-heart

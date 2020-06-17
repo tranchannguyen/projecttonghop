@@ -51,8 +51,8 @@ head
           .col-lg-2.col-sm-3.col-3.order-1
             .logo_container
               .logo
-                a(href='#') TechShop
-                
+                a(href='/') OneTech
+
 
           // Search
           .col-lg-6.col-12.order-lg-2.order-3.text-lg-left.text-right
@@ -90,13 +90,19 @@ head
                   .cart_content
                     .cart_text
                       a(href='/cart') Cart
-                    
+                    .cart_price
+                      if session.cart
+                        span= session.cart.totalPrice + " $"
+                      else
+                        span $0
+
     // Main Navigation
     nav.main_nav
       .container
         .row
           .col
             .main_nav_content.d-flex.flex-row
+
               // Categories Menu
               .cat_menu_container
                 .cat_menu_title.d-flex.flex-row.align-items-center.justify-content-start
@@ -106,23 +112,29 @@ head
                     span
                   .cat_menu_text categories
                 ul.cat_menu
-                  if categorys
-                    each category in categorys
-                      li
-                        a(href='/productofcategorys/'+category._id)= category.name
-                          i.fas.fa-chevron-right.ml-auto
-              // Main Nav Menu
+                  each cate in categorys
+                    li
+                      a(href='/productofcategorys/'+cate._id)= cate.name
+                        i.fas.fa-chevron-right.ml-auto
+
               .main_nav_menu.ml-auto
                 ul.standard_dropdown.main_nav_dropdown
                   li
                     a(href='/')
                       | Home
                       i.fas.fa-chevron-down
-                  each category in categorys
-                    li
-                      a(href='/productofcategorys/'+category._id)= category.name
-                        
-                        i.fas.fa-chevron-down 
+                  li
+                    a(href='/viewAll')
+                      | Shop
+                      i.fas.fa-chevron-down
+                  li
+                    a(href='/blog')
+                      | Blog
+                      i.fas.fa-chevron-down
+                  li
+                    a(href='/contact')
+                      | Contact
+                      i.fas.fa-chevron-down
               // Menu Trigger
               .menu_trigger_container.ml-auto
                 .menu_trigger.d-flex.flex-row.align-items-center.justify-content-end
@@ -134,22 +146,22 @@ head
                       span
   // Cart
   .cart_section
-    .container     
+    .container
       .row
         .col-lg-10.offset-lg-1
           .cart_container
             .cart_title Shopping Cart
             .cart_items
               if arrayPro
-                each arr in arrayPro                  
+                each arr in arrayPro
                   ul.cart_list
                     li.cart_item.clearfix
                       .cart_item_image
-                        img(src=arr.item.pro_image, alt='')
+                        img(src=arr.item.pro_images[0], alt='')
                       .cart_item_info.d-flex.flex-md-row.flex-column.justify-content-between
                         .cart_item_name.cart_info_col
                           .cart_item_title Name
-                          .cart_item_text=arr.item.name
+                          .cart_item_text= arr.item.name
                         .cart_item_quantity.cart_info_col
                           .cart_item_title Quantity
                           .cart_item_text= arr.qty
@@ -161,10 +173,10 @@ head
                           .cart_item_text= arr.price
               else
                  span Không có sản phẩm được chọn
-                 p Nhấp vào 
+                 p Nhấp vào
                   a(href='/viewAll') đây để mua hàng
-                 
-            
+
+
             // Order Total
             .order_total
               .order_total_content.text-md-right
@@ -266,9 +278,9 @@ head
               | Copyright &copy;
               script.
                 document.write(new Date().getFullYear());
-              |  All rights reserved | This template is made with 
+              |  All rights reserved | This template is made with
               i.fa.fa-heart(aria-hidden='true')
-              |  by 
+              |  by
               a(href='https://colorlib.com', target='_blank') Colorlib
               // Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0.
             .logos.ml-sm-auto

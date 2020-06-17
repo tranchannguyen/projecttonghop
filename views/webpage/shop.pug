@@ -76,20 +76,27 @@ head
               .cart
                 .cart_container.d-flex.flex-row.align-items-center.justify-content-end
                   .cart_icon
-                    img(src='../webpage/images/cart.png', alt='')
+                    img(src='/webpage/images/cart.png', alt='')
                     .cart_count
-                      span 0
+                      if session.cart
+                        span= session.cart.totalQty
+                      else
+                        span 0
                   .cart_content
                     .cart_text
-                      a(href='#') Cart
-                    .cart_price $0
+                      a(href='/cart') Cart
+                    .cart_price
+                      if session.cart
+                        span= session.cart.totalPrice + " $"
+                      else
+                        span $0
     // Main Navigation
     nav.main_nav
       .container
         .row
           .col
             .main_nav_content.d-flex.flex-row
-              
+
               // Categories Menu
               .cat_menu_container
                 .cat_menu_title.d-flex.flex-row.align-items-center.justify-content-start
@@ -103,7 +110,7 @@ head
                     li
                       a(href='/productofcategorys/'+cate._id)= cate.name
                         i.fas.fa-chevron-right.ml-auto
-                        
+
               .main_nav_menu.ml-auto
                 ul.standard_dropdown.main_nav_dropdown
                   li
@@ -131,7 +138,7 @@ head
                       span
                       span
                       span
-   
+
   // Home
   .home
     .home_background.parallax-window(data-parallax='scroll', data-image-src='images/shop_background.jpg')
@@ -156,7 +163,7 @@ head
               .sidebar_subtitle Price
               .filter_price
                 #slider-range.slider_range
-                p Range: 
+                p Range:
                 p
                   input#amount.amount(type='text', readonly='', style='border:0; font-weight:bold;')
             .sidebar_section
@@ -202,7 +209,7 @@ head
                   ul.product_marks
                     if prod.isSale.status == true
                       li.product_mark.product_discount= prod.isSale.percent + '%'
-                    
+
             // Shop Page Navigation
             .shop_page_nav.d-flex.flex-row
               .page_prev.d-flex.flex-column.align-items-center.justify-content-center
@@ -450,9 +457,9 @@ head
               | Copyright &copy;
               script.
                 document.write(new Date().getFullYear());
-              |  All rights reserved | This template is made with 
+              |  All rights reserved | This template is made with
               i.fa.fa-heart(aria-hidden='true')
-              |  by 
+              |  by
               a(href='https://colorlib.com', target='_blank') Colorlib
               // Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0.
             .logos.ml-sm-auto
