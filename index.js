@@ -19,7 +19,7 @@ app.listen(process.env.PORT || 3000,function(){
 mongoose.connect(process.env.MONGO_URL, { useNewUrlParser: true,useUnifiedTopology: true}).then(
    () => {
       console.log("connet DB success");
-      
+
    },
    err => {
       console.log("connet fails .Error :${err}");
@@ -78,4 +78,3 @@ app.use('/orders',authMidleware.requireAuth,orderRoute);
 app.use('/users',authMidleware.requireAuth,adminMidleware.requireAdmin,userRoute);
 app.use('/products',authMidleware.requireAuth,productRoute);
 app.use('/auth',authRoute);
-

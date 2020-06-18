@@ -5,8 +5,16 @@ module.exports.requireUserG = async function(req,res,next){
         var userG = await UserG.find({_id: req.signedCookies.userG});
         if (!userG[0]) {
             // statement
-            return;	
+            return;
         }else res.locals.userG = userG[0];
     }
 	next();
+}
+module.exports.checkout = function(req,res,next){
+    if(req.signedCookies.userG){
+        return
+    }else{
+        res.redirect('/login')
+    }
+    next()
 }

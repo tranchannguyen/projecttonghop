@@ -33,14 +33,14 @@ head
                   .user_icon
                     img(src='/webpage/images/user.svg', alt='')
                   div
-                    a(href='#')= userG.name
+                    a(href='/account')= userG.name
                   div
                     a(href='/logout') Đăng xuất
                 else
                   .user_icon
                     img(src='/webpage/images/user.svg', alt='')
                   div
-                    a(href='/resiger') Register
+                    a(href='/register') Register
                   div
                     a(href='/login') Sign in
     // Header Main
@@ -52,7 +52,7 @@ head
             .logo_container
               .logo
                 a(href='#') TechShop
-                
+
 
           // Search
           .col-lg-6.col-12.order-lg-2.order-3.text-lg-left.text-right
@@ -90,7 +90,7 @@ head
                   .cart_content
                     .cart_text
                       a(href='/cart') Cart
-                    
+
     // Main Navigation
     nav.main_nav
       .container
@@ -121,8 +121,8 @@ head
                   each category in categorys
                     li
                       a(href='/productofcategorys/'+category._id)= category.name
-                        
-                        i.fas.fa-chevron-down 
+
+                        i.fas.fa-chevron-down
               // Menu Trigger
               .menu_trigger_container.ml-auto
                 .menu_trigger.d-flex.flex-row.align-items-center.justify-content-end
@@ -265,9 +265,9 @@ head
               | Copyright &copy;
               script.
                 document.write(new Date().getFullYear());
-              |  All rights reserved | This template is made with 
+              |  All rights reserved | This template is made with
               i.fa.fa-heart(aria-hidden='true')
-              |  by 
+              |  by
               a(href='https://colorlib.com', target='_blank') Colorlib
               // Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0.
             .logos.ml-sm-auto

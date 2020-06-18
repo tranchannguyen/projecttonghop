@@ -248,7 +248,7 @@ module.exports.viewProductByCateId = async function(req,res){
    }
    res.redirect("back");
  }
- module.exports.checkout = async function(req,res){
+ module.exports.checkout = async function(req,res,next){
    if(!req.session.cart){
       res.redirect('/cart')
    }
@@ -330,50 +330,33 @@ module.exports.viewProductByCateId = async function(req,res){
      res.redirect("back");
    });
  };
+ exports.detailsUser = async (req,res) =>{
+   if(req.signedCookies.userG){
+      var users = await UserG.findOne({_id: req.signedCookies.userG});
+      const categorys = await Category.find()
 
-//  exports.addOrder = (req, res, next) => {
-//    var cartProduct;
-//    if (!req.session.cart) {
-//      cartProduct = null;
-//    } else {
-//      var cart = new Cart(req.session.cart);
-//      cartProduct = cart.generateArray();
-//    }
-//    res.render("add-address", {
-//      title: "Thông tin giao hàng",
-//      user: req.user,
-//      cartProduct: cartProduct
-//    });
-//  };
-
-//  exports.postAddOrder = async (req, res, next) => {
-//    console.log(req.session.cart);
-//    if (req.session.cart.totalQty) {
-//      var order = new Order({
-//        user: req.user,
-//        cart: req.session.cart,
-//        address: req.body.address,
-//        phoneNumber: req.body.phone
-//      });
-
-//      for (var id in req.session.cart.items) {
-//        await Products.findOne({ _id: id })
-//          .then(product => {
-//            product.buyCounts += parseInt(req.session.cart.items[id].qty);
-//            product.save();
-//          })
-//          .catch(err => console.log(err));
-//      }
-
-//      order.save((err, result) => {
-//        req.flash("success", "Thanh toán thành công!");
-//        req.session.cart = null;
-//        req.user.cart = {};
-//        req.user.save();
-//        res.redirect("/account");
-//      });
-//    } else {
-//      req.flash("error", "Giỏ hàng rỗng!");
-//      res.redirect("/account");
-//    }
-//  };
+      res.render('users/detailUser',{ users: users, categorys:categorys})
+   }
+ }
+ exports.editUser = async(req,res)=>{
+   if(req.signedCookies.userG){
+      var users = await UserG.findOne({_id: req.signedCookies.userG});
+      const categorys = await Category.find();
+      res.render('users/edit',{ users: users, categorys:categorys})
+ }
+}
+exports.posteditUser = async(req,res)=>{
+   const id = req.params.id
+   const name = req.body.name
+   const phone = req.body.phone
+   const address = req.body.address
+   await UserG.findOneAndUpdate({_id:id},{
+      name: name,
+      phone:phone,
+      address:address,
+      update_time: Date.now()
+   },function(err){
+		if(err)	res.json(err);
+		else	res.redirect('/account');
+	})
+}
