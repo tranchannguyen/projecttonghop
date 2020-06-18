@@ -8,7 +8,7 @@ module.exports = function Cart(oldCart) {
     const itemQty = qty ? Number(qty) : 1;
     var storeItem = this.items[id];
     if (!storeItem) {
-      storeItem = this.items[id] = { item: item, qty: 0, price: 0, images: '' };
+      storeItem = this.items[id] = {id: id, item: item, qty: 0, price: 0, images: '' };
       this.numItems++;
     }
     storeItem.qty += itemQty;

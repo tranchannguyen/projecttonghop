@@ -314,45 +314,22 @@ module.exports.viewProductByCateId = async function(req,res){
   });
  };
 
-//  exports.modifyCart = (req, res, next) => {
-//    var prodId = req.query.id;
-//    var qty = req.query.qty;
-//    if (qty == 0) {
-//      return res.redirect("back");
-//    }
-//    var cart = new Cart(req.session.cart ? req.session.cart : {});
-//    Products.findById(prodId, (err, product) => {
-//      if (err) {
-//        return res.redirect("back");
-//      }
-//      cart.changeQty(product, prodId, qty);
-//      req.session.cart = cart;
-//      if (req.user) {
-//        req.user.cart = cart;
-//        req.user.save();
-//      }
-//      res.redirect("back");
-//    });
-//  };
-
-
-//  exports.getDeleteItem = (req, res, next) => {
-//    var prodId = req.params.productId;
-//    var cart = new Cart(req.session.cart ? req.session.cart : {});
-//    Products.findById(prodId, (err, product) => {
-//      if (err) {
-//        return res.redirect("back");
-//      }
-//      cart.deleteItem(prodId);
-//      req.session.cart = cart;
-//      if (req.user) {
-//        req.user.cart = cart;
-//        req.user.save();
-//      }
-//      console.log(req.session.cart);
-//      res.redirect("back");
-//    });
-//  };
+ exports.getDeleteItem = (req, res, next) => {
+   var prodId = req.params.id;
+   var cart = new Cart(req.session.cart ? req.session.cart : {});
+   Product.findById(prodId, (err, product) => {
+     if (err) {
+       return res.redirect("back");
+     }
+     cart.deleteItem(prodId);
+     req.session.cart = cart;
+     if (req.user) {
+       req.user.cart = cart;
+       req.user.save();
+     }
+     res.redirect("back");
+   });
+ };
 
 //  exports.addOrder = (req, res, next) => {
 //    var cartProduct;
@@ -399,15 +376,4 @@ module.exports.viewProductByCateId = async function(req,res){
 //      req.flash("error", "Giỏ hàng rỗng!");
 //      res.redirect("/account");
 //    }
-//  };
-
-//  exports.mergeCart = (req, res, next) => {
-//    if (req.user.cart != {} && req.user.cart) {
-//      var cart = new Cart(req.session.cart ? req.session.cart : {});
-//      cart = cart.addCart(req.user.cart);
-//      req.session.cart = cart;
-//      req.user.cart = cart;
-//      req.user.save();
-//    }
-//    res.redirect("/");
 //  };

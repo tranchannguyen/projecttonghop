@@ -161,7 +161,7 @@ head
                 p= products.description
 
               .order_info.d-flex.flex-row
-                form(action='#')
+                form(action='/add-to-cart/'+products.id)
                   .clearfix(style='z-index: 1000;')
                     // Product Quantity
                     .product_quantity.clearfix
@@ -174,7 +174,7 @@ head
                           i.fas.fa-chevron-down
                   .product_price= 'Price : '+ products.price + " $"
                   .button_container
-                    button.button.cart_button(type='button') Add to Cart
+                    a.button.cart_button(type='button', href='/add-to-cart/'+products.id) Add to Cart
           .col-lg-5.order-3
               .tt-collapse-title= 'Có '+ products.comment.total + ' đánh giá'
                 .tt-review-comments.sliderr.arrow-location-right-top
