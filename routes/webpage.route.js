@@ -3,7 +3,7 @@ var webpageController = require('../controller/webpage.controller')
 var Product = require('../models/product.model')
 var Cart = require('../models/cart')
 var router = express.Router()
-const authcheck = require('../midlewares/auth.midleware')
+const authcheck = require('../midlewares/userG.midleware')
 
 router.get('/',webpageController.index);
 router.get('/search',webpageController.search);
@@ -22,7 +22,7 @@ router.get('/logout',webpageController.logout)
 router.get('/add-to-cart/:id', webpageController.addToCart)
 router.get('/cart',webpageController.cart);
 router.get('/cart/clear',webpageController.clear);
-router.get('/checkout',authcheck.requireAuth,webpageController.checkout);
+router.get('/checkout',authcheck.requireUserG,webpageController.checkout);
 router.post('/checkout',webpageController.postCheckout);
 router.get('/profile',webpageController.getProfile);
 router.post('/profile',webpageController.postProfile);
