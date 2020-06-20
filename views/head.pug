@@ -30,12 +30,20 @@ head
               a(href='mailto:fastsales@gmail.com') nguyentranchan1998@gmail.com
             .top_bar_content.ml-auto
               .top_bar_user
-                .user_icon
-                  img(src='/webpage/images/user.svg', alt='')
-                div
-                  a(href='/register') Register
-                div
-                  a(href='/login') Sign in
+                if userG
+                  .user_icon
+                    img(src='/webpage/images/user.svg', alt='')
+                  div
+                    a(href='account')= userG.name
+                  div
+                    a(href='/logout') Đăng xuất
+                else
+                  .user_icon
+                    img(src='/webpage/images/user.svg', alt='')
+                  div
+                    a(href='/register') Register
+                  div
+                    a(href='/login') Sign in
     // Header Main
     .header_main
       .container
@@ -89,7 +97,7 @@ head
                       a(href='/cart') Cart
                     .cart_price
                       if session.cart
-                        span= session.cart.totalPrice
+                        span= session.cart.totalPrice + '$'
                       else
                         span $0
     // Main Navigation

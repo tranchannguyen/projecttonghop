@@ -6,6 +6,7 @@ var userGSchema = new mongoose.Schema({
     pass: String,
     email: String,
     phone:String,
+    avatar: String,
     status:String,
     address: String,
     create_time : {

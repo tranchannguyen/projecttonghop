@@ -51,7 +51,7 @@ head
           .col-lg-2.col-sm-3.col-3.order-1
             .logo_container
               .logo
-                a(href='#') TechShop
+                a(href='/') TechShop
 
 
           // Search
@@ -90,6 +90,11 @@ head
                   .cart_content
                     .cart_text
                       a(href='/cart') Cart
+                    .cart_price
+                      if session.cart
+                        span= session.cart.totalPrice + ' $'
+                      else
+                        span $0
 
     // Main Navigation
     nav.main_nav
@@ -106,11 +111,10 @@ head
                     span
                   .cat_menu_text categories
                 ul.cat_menu
-                  if categorys
-                    each category in categorys
-                      li
-                        a(href='/productofcategorys/'+category._id)= category.name
-                          i.fas.fa-chevron-right.ml-auto
+                  each cate in categorys
+                    li
+                      a(href='/productofcategorys/'+cate._id)= cate.name
+                        i.fas.fa-chevron-right.ml-auto
               // Main Nav Menu
               .main_nav_menu.ml-auto
                 ul.standard_dropdown.main_nav_dropdown
@@ -118,11 +122,18 @@ head
                     a(href='/')
                       | Home
                       i.fas.fa-chevron-down
-                  each category in categorys
-                    li
-                      a(href='/productofcategorys/'+category._id)= category.name
-
-                        i.fas.fa-chevron-down
+                  li
+                    a(href='/viewAll')
+                      | Shop
+                      i.fas.fa-chevron-down
+                  li
+                    a(href='/blog')
+                      | Blog
+                      i.fas.fa-chevron-down
+                  li
+                    a(href='/contact')
+                      | Contact
+                      i.fas.fa-chevron-down
               // Menu Trigger
               .menu_trigger_container.ml-auto
                 .menu_trigger.d-flex.flex-row.align-items-center.justify-content-end

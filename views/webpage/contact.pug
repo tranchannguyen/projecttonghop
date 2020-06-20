@@ -27,12 +27,20 @@ head
               a(href='mailto:fastsales@gmail.com') nguyentranchan1998@gmail.com
             .top_bar_content.ml-auto
               .top_bar_user
-                .user_icon
-                  img(src='../webpage/images/user.svg', alt='')
-                div
-                  a(href='/register') Register
-                div
-                  a(href='/login') Sign in
+                if userG
+                  .user_icon
+                    img(src='/webpage/images/user.svg', alt='')
+                  div
+                    a(href='account')= userG.name
+                  div
+                    a(href='/logout') Đăng xuất
+                else
+                  .user_icon
+                    img(src='/webpage/images/user.svg', alt='')
+                  div
+                    a(href='/register') Register
+                  div
+                    a(href='/login') Sign in
     // Header Main
     .header_main
       .container
@@ -82,13 +90,20 @@ head
               .cart
                 .cart_container.d-flex.flex-row.align-items-center.justify-content-end
                   .cart_icon
-                    img(src='../webpage/images/cart.png', alt='')
+                    img(src='/webpage/images/cart.png', alt='')
                     .cart_count
-                      span 0
+                      if session.cart
+                        span= session.cart.totalQty
+                      else
+                        span 0
                   .cart_content
                     .cart_text
-                      a(href='#') Cart
-                    .cart_price $0
+                      a(href='/cart') Cart
+                    .cart_price
+                      if session.cart
+                        span= session.cart.totalPrice + ' $'
+                      else
+                        span $0
     // Main Navigation
     nav.main_nav
       .container
@@ -148,21 +163,21 @@ head
                 img(src='../webpage/images/contact_1.png', alt='')
               .contact_info_content
                 .contact_info_title Phone
-                .contact_info_text +38 068 005 3570
+                .contact_info_text +84 033 256 9719
             // Contact Item
             .contact_info_item.d-flex.flex-row.align-items-center.justify-content-start
               .contact_info_image
                 img(src='../webpage/images/contact_2.png', alt='')
               .contact_info_content
                 .contact_info_title Email
-                .contact_info_text fastsales@gmail.com
+                .contact_info_text nguyentranchan1998@gmail.com
             // Contact Item
             .contact_info_item.d-flex.flex-row.align-items-center.justify-content-start
               .contact_info_image
                 img(src='../webpage/images/contact_3.png', alt='')
               .contact_info_content
                 .contact_info_title Address
-                .contact_info_text 10 Suffolk at Soho, London, UK
+                .contact_info_text 64 U Văn Khiêm, Bình Thạnh, tp Hồ Chí Minh
   // Contact Form
   .contact_form
     .container
