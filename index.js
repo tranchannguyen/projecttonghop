@@ -69,6 +69,7 @@ app.use('/searchProductOfBrand', express.static(path.join(__dirname, 'public')))
 app.use('/categorys', express.static(path.join(__dirname, 'public')))
 app.use('/productofcategorys', express.static(path.join(__dirname, 'public')))
 app.use('/viewDetailProduct', express.static(path.join(__dirname, 'public')))
+app.use('/', express.static(path.join(__dirname, 'public')))
 
 
 
