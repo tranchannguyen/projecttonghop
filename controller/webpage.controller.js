@@ -235,7 +235,13 @@ module.exports.viewProductByCateId = async function(req,res){
 			errors : ['Password not true.']
 		});
 		return;
-	}
+   }
+   if(userg.status == 'BLOCKED'){
+      res.render('authG/signin',{
+			errors : ['User is blocked.']
+		});
+		return;
+   }
 	res.cookie('userG',userg._id,{signed:true});
 	res.redirect('/');
  }
@@ -270,6 +276,12 @@ module.exports.viewProductByCateId = async function(req,res){
  }
  module.exports.postCheckout = async function(req,res){
     req.body.cart = req.session.cart;
+    const userG = await UserG.findByIdAndUpdate({_id: req.signedCookies.userG},{
+      order: req.body.cart
+    },function(err){
+		if(err)	res.json(err);
+   })
+   console.log(userG)
     req.body.checked = false;
     await Order.insertMany(req.body);
     res.clearCookie('connect.sid');
@@ -363,13 +375,15 @@ exports.posteditUser = async(req,res)=>{
    const name = req.body.name
    const phone = req.body.phone
    const address = req.body.address
+   var ava = req.file.path.split('\\').slice(1).join('/')
    await UserG.findOneAndUpdate({_id:id},{
       name: name,
       phone:phone,
       address:address,
+      avatar: ava,
       update_time: Date.now()
    },function(err){
 		if(err)	res.json(err);
-		else	res.redirect('/account');
+		else	res.render('/account');
 	})
 }

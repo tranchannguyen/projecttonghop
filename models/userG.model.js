@@ -13,7 +13,7 @@ var userGSchema = new mongoose.Schema({
         type : Date, default: Date.now},
     update_time : {
         type : Date, default: Date.now},
-
+    order: Object
 })
 var UserG = mongoose.model('UserG',userGSchema,'userG');
 

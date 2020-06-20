@@ -25,10 +25,17 @@ module.exports.get =async function(req,res){
 		{ users: users });
 }
 
-module.exports.deleteUser = async function(req,res){
-
-		await UserG.remove({_id:req.params.id},function(err){
-		if(err) res.json(err);
-		else	res.redirect('/users');
+module.exports.block = async function(req,res){
+		const user = await UserG.findOne({_id:req.params.id})
+		if(user.status === 'IN_PROGRESS'){
+			var status = 'BLOCKED'
+		}else{
+			var status = 'IN_PROGRESS'
+		}
+		await UserG.findByIdAndUpdate({_id:req.params.id},{
+			status: status
+	},function(err){
+		if(err) console.log(err)
 	});
+	res.redirect('/users')
 }

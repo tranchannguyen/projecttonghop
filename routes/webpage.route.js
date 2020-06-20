@@ -1,9 +1,9 @@
 var express = require('express');
+var multer  = require('multer');
 var webpageController = require('../controller/webpage.controller')
-var Product = require('../models/product.model')
-var Cart = require('../models/cart')
 var router = express.Router()
 const authcheck = require('../midlewares/userG.midleware')
+var upload = multer({ dest: './public/uploads' })
 
 router.get('/',webpageController.index);
 router.get('/search',webpageController.search);
@@ -29,7 +29,8 @@ router.post('/profile',webpageController.postProfile);
 router.get("/delete-item/:id", webpageController.getDeleteItem);
 router.get('/account',webpageController.detailsUser)
 router.get('/account/edit',webpageController.editUser)
-router.post('/account/edit/:id',webpageController.posteditUser)
+router.post('/account/edit/:id',upload.single('avatar'),
+webpageController.posteditUser)
 
 // router.get('/search',userController.search);
 // router.get('/:id',userController.get);

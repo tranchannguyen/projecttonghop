@@ -61,6 +61,7 @@ mongoose.set('useFindAndModify', false);
 
 app.use('/users/edits', express.static(path.join(__dirname, 'public')))
 app.use('/users/', express.static(path.join(__dirname, 'public')))
+app.use('/account/', express.static(path.join(__dirname, 'public')))
 app.use('/orders', express.static(path.join(__dirname, 'public')))
 app.use('/products', express.static(path.join(__dirname, 'public')))
 app.use('/products/edits', express.static(path.join(__dirname, 'public')))
