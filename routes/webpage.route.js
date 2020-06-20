@@ -22,7 +22,7 @@ router.get('/logout',webpageController.logout)
 router.get('/add-to-cart/:id', webpageController.addToCart)
 router.get('/cart',webpageController.cart);
 router.get('/cart/clear',webpageController.clear);
-router.get('/checkout',authcheck.requireUserG,webpageController.checkout);
+router.get('/checkout',authcheck.checkout,webpageController.checkout);
 router.post('/checkout',webpageController.postCheckout);
 router.get('/profile',webpageController.getProfile);
 router.post('/profile',webpageController.postProfile);
