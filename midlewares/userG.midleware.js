@@ -11,10 +11,8 @@ module.exports.requireUserG = async function(req,res,next){
 	next();
 }
 module.exports.checkout = function(req,res,next){
-    if(req.signedCookies.userG){
-        return
-    }else{
-       return res.redirect('/login')
+    if(!req.signedCookies.userG){
+        return res.redirect('/login')
     }
     next()
 }

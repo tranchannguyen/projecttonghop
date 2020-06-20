@@ -168,10 +168,10 @@ head
                           .cart_item_text= arr.qty
                         .cart_item_price.cart_info_col
                           .cart_item_title Price
-                          .cart_item_text= arr.item.price
+                          .cart_item_text= arr.item.price + '$'
                         .cart_item_total.cart_info_col
                           .cart_item_title Total
-                          .cart_item_text= arr.price
+                          .cart_item_text= arr.price + '$'
                         .cart_item_price.cart_info_col
                           .cart_item_title Action
                           .cart_item_text
@@ -188,7 +188,7 @@ head
               .order_total_content.text-md-right
                 .order_total_title Order Total:
                 if session.cart
-                    .order_total_amount= session.cart.totalPrice
+                    .order_total_amount= session.cart.totalPrice + '$'
             .cart_buttons
               a.button.cart_button_clear(type='button',href='/cart/clear') Clear
               a.button.cart_button_checkout(type='button',href='/checkout') Thanh toán

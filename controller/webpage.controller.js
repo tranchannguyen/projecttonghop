@@ -84,12 +84,11 @@ module.exports.contact = async function(req,res) {
    })
 }
 module.exports.viewAll = async function(req,res){
+   var product = await Product.find()
    var page = parseInt(req.query.page) || 1
    var perpage = 25
    let start = (page - 1) * perpage;
    let end =  page * perpage
-
-   var product = await Product.find()
    let numberpages = Math.ceil(parseFloat(product.length/perpage))
    let arrpages = []
    for(let i = 1; i<=numberpages; i++){
@@ -116,8 +115,18 @@ module.exports.viewAll = async function(req,res){
 
 module.exports.brand = async function(req,res) {
    let namebrand  = req.params.brand;
-   var product = await Product.find();
-   products = product.filter(prduct => prduct.brand == namebrand)
+   var Allproduct = await Product.find();
+   var product = Allproduct.filter(prduct => prduct.brand == namebrand)
+   var page = parseInt(req.query.page) || 1
+   var perpage = 25
+   let start = (page - 1) * perpage;
+   let end =  page * perpage
+   let numberpages = Math.ceil(parseFloat(product.length/perpage))
+   let arrpages = []
+   for(let i = 1; i<=numberpages; i++){
+      arrpages.push(i)
+   }
+   products = product.slice(start,end)
    let brands = []
    for(pro of product){
       if(brands.indexOf(pro.brand) <= -1) {
@@ -129,6 +138,7 @@ module.exports.brand = async function(req,res) {
       products: products,
       categorys: categorys,
       countProduct: countProduct,
+      arrpages: arrpages,
       title: namebrand,
       brands:brands
    });
@@ -169,10 +179,12 @@ module.exports.viewProductByCateId = async function(req,res){
     var products = await Product.findOne({_id: id})
     var categorys = await Category.find();
     var catein = await Category.findOne({_id: products.idCate});
+    var productOrthers = await Product.find({idCate: products.idCate});
     res.render('webpage/singleProduct',{
        products: products,
        categorys: categorys,
-       catein: catein
+       catein: catein,
+       productOrthers: productOrthers,
     });
  }
  module.exports.register = function(req,res){
@@ -210,7 +222,7 @@ module.exports.viewProductByCateId = async function(req,res){
 
 	var userg = await UserG.findOne({email: email});
 	if(!userg){
-		res.render('/login',{
+		res.render('authG/signin',{
 			errors : ['User does not exit.']
 		});
 		return;
@@ -218,7 +230,7 @@ module.exports.viewProductByCateId = async function(req,res){
 	var haspassword = md5(your_pass);
 	if (userg.pass !== haspassword) {
 		// statement
-		res.render('/login',{
+		res.render('authG/signin',{
 			errors : ['Password not true.']
 		});
 		return;

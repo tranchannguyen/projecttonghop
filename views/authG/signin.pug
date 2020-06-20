@@ -19,10 +19,10 @@ head
           a.signup-image-link(href='/register') Create an account
         .signin-form
           h2.form-title Sign in
+          form#login-form.register-form(action ='/login',method='POST')
             if errors
               each error in errors
                 .alert.alert-danger= error
-          form#login-form.register-form(action ='/login',method='POST')
             .form-group
               label(for='your_email')
                 i.zmdi.zmdi-account.material-icons-name
