@@ -384,6 +384,6 @@ exports.posteditUser = async(req,res)=>{
       update_time: Date.now()
    },function(err){
 		if(err)	res.json(err);
-		else	res.render('/account');
+		else	res.redirect('/account');
 	})
 }
