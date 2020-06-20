@@ -14,7 +14,7 @@ module.exports.checkout = function(req,res,next){
     if(req.signedCookies.userG){
         return
     }else{
-        res.redirect('/login')
+       return res.redirect('/login')
     }
     next()
 }
